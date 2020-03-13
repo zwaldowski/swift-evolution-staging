@@ -1,53 +1,41 @@
-# Swift Evolution Staging
-
-This repository is the starting point for Swift Evolution proposal
-implementations. See the [Swift Evolution Process][se-process] to learn about
-how ideas are pitched, refined, and then proposed for inclusion in the Swift
-standard library.
-
-[se-process]: https://github.com/apple/swift-evolution/blob/master/process.md
-
-Complete this checklist when preparing your implementation:
-  
-- In `Package.swift` and in the _Introduction_ section below, rename your module
-  to use a short, camel-cased name of your proposed feature (ex: `SE0000_MyFeature`).
-  
-- Rename the folders and files in the `Sources` and `Tests` directories to match
-  your new module name.
-  
-- Implement your proposed feature in the `Sources` directory, and add tests in
-  the `Tests` directory.
-  
-- Make sure the Swift project code header is at the beginning of every source
-  file.
-  
-- Finish editing the section below, and then remove this checklist and
-  everything else above the line. That's it!
-
---------------------------------------------------------------------------------
-
-# Package Name
+# Collection Splitting By Length
 
 > **Note:** This package is a part of a Swift Evolution proposal for
   inclusion in the Swift standard library, and is not intended for use in
   production code at this time.
 
 * Proposal: [SE-NNNN](https://github.com/apple/swift-evolution/proposals/NNNN-filename.md)
-* Author(s): [Author 1](https://github.com/author1), [Author 2](https://github.com/author1)
-
+* Author(s): [Zachary Waldowski](https://github.com/zwaldowski)
 
 ## Introduction
 
-A short description of the proposed library. 
-Provide examples and describe how they work.
+Allows processing a Swift `Sequence` or `Collection` in chunks, an operation
+sometimes desired in text processing, such as parsing some structured data.
 
 ```swift
-import SE0000_PackageName
+import SE0000_SplitEvery
 
-print(Placeholder.message)
-// Prints("Hello, world!")
+let formattedMAC = "0123456789ABCDEF"
+    .split(every: 2)
+    .joined(separator: ":")
+    .uppercased()
+print(formattedMAC)
+// Prints "01:23:45:67:89:AB:CD:EF"
 ```
 
+Like its stdlib cousin `split(maxSplits:omittingEmptySubsequences:whereSeparator:)`,
+`split(every:)` is an eager operation that creates slices of the original collection. 
+
+Similar to `split(maxSplits:omittingEmptySubsequences:whereSeparator:)`,
+subsequences containing fewer than the requested maximum length are included.
+
+```swift
+let isValidMAC = "0123456789ABCDE"
+    .split(every: 2)
+    .allSatisfy { $0.count == 2 }
+print(isValidMAC)
+// Prints "false"
+```
 
 ## Usage
 
@@ -57,7 +45,7 @@ add the following to your `Package.swift` file's dependencies:
 ```swift
 .package(
     url: "https://github.com/apple/swift-evolution-staging.git",
-    .branch("SE0000_PackageName")),
+    .branch("SE0000_SplitEvery")),
 ```
 
 

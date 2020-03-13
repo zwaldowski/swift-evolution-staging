@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 import XCTest
-import SE0000_PackageName
+import SE0000_SplitEvery
 
 final class SENNNN_PackageNameTests: XCTestCase {
   func testPlaceholder() {

@@ -14,21 +14,21 @@
 import PackageDescription
 
 let package = Package(
-  name: "SE0000_PackageName",
+  name: "SE0000_SplitEvery",
   products: [
     .library(
-      name: "SE0000_PackageName",
-      targets: ["SE0000_PackageName"]),
+      name: "SE0000_SplitEvery",
+      targets: ["SE0000_SplitEvery"]),
   ],
   dependencies: [
   ],
   targets: [
     .target(
-      name: "SE0000_PackageName",
+      name: "SE0000_SplitEvery",
       dependencies: []),
     
     .testTarget(
-      name: "SE0000_PackageNameTests",
-      dependencies: ["SE0000_PackageName"]),
+      name: "SE0000_SplitEveryTests",
+      dependencies: ["SE0000_SplitEvery"]),
   ]
 )
